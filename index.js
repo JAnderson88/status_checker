@@ -1,5 +1,4 @@
 const rp = require('request-promise')
-const $ = require('jquery')
 const urls = require('./url.json')
 console.log(urls)
 let URL = ""
@@ -26,6 +25,7 @@ let intervalFunction = function(URL){
     })
     .catch(function (err) {
         console.log("Failed.")
+        //post to slack
         const options = {
             "uri" : "https://hooks.slack.com/services/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",
             "method": "POST",
