@@ -1,28 +1,40 @@
 const rp = require('request-promise')
+const $ = require('jquery')
+const urls = require('./url.json')
+console.log(urls)
 let URL = ""
 
 let intervalFunction = function(URL){
     console.log(`This is a test of ${URL}`)
+    const date = new Date()
+    const domain = URL
     rp(URL)
     .then(function (htmlString) {
         // Process html...
         if (typeof htmlString !== 'string' || !htmlString.includes("FVI")){
             //post to slack
-            console.log("Ready to post to slack")
+            const options = {
+                "uri" : "https://hooks.slack.com/services/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",
+                "method": "POST",
+                "body" : {"text": `There was an error connecting to ${domain}, Timestamp:${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`}
+            }
+            rp(package)
         }
         else{
-            console.log("timestamp, domain, success msg")
+            console.log(`${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}, to: ${domain}, Succesful Connection`)
         }
     })
     .catch(function (err) {
-        // Crawling failed...
-        console.log(err)
+        console.log("Failed.")
+        const options = {
+            "uri" : "https://hooks.slack.com/services/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",
+            "method": "POST",
+            "body" : {"text": `There was an error connecting to ${domain}, Timestamp:${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`},
+            "json" : true
+        }
+        rp(options)
     });
 }
 
 
-
-setInterval(function(){
-    URL = (URL === "https://fvi.edu") ? 'https://fvi.edu/es' : 'https://fvi.edu'
-    intervalFunction(URL)
-}, 15000)
+intervalFunction(urls.url1);
