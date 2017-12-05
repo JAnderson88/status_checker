@@ -1,6 +1,5 @@
 const rp = require('request-promise')
 const urls = require('./url.json')
-console.log(urls)
 let URL = ""
 
 let intervalFunction = function(URL){
